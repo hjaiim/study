@@ -93,7 +93,7 @@
         var currentIndex = 0,
             indicatorIndex = 0;
 
-        // 2. 克隆li标签
+        // 2. 克隆第一个li标签,为了无限循环
         $('ul').appendChild(lis[0].cloneNode(true));
 
         // 3. 动态创建页码
@@ -102,16 +102,13 @@
             $('ol').appendChild(li);
         }
 
-        // 4. 第一个选中
+        // 4. 页码默认选中第一个
         $("ol").children[0].className = "current";
 
         // 5.鼠标进入圆点
 
-
-
-
         // 6.自动轮播
-        var timer = setInterval(autoPlay, 3000);
+        var timer = setInterval(autoPlay, 2000);
 
         function autoPlay() {
             currentIndex++;

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>input输入手机号增加空格</title>
+    <meta name="viewport" content="width=width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+</head>
+
+<body>
+    <input type="text" id="test" onkeyup="testNum()" onkeydown="testNum()" onkeypress="testNum()" />
+    <script type="text/javascript">
+        function testNum() {
+            var testValue = $('#test').val().replace(/\D/g, '').replace(/....(?!$)/g, '$& '); //替换空格前4位数字为4位数字加空格
+            $('#test').val(testValue)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,14 +1,3 @@
-var Book = {};
-var name = '';
-Object.defineProperty(Book, 'name', {
-    set: function (value) {
-        name = value;
-    },
-    get: function () {
-        return name;
-    }
-})
-
 function observe(data) {
     // 容错
     if (!data || typeof data !== 'object') {
@@ -31,8 +20,12 @@ function defineReactive(data, key, val) {
         enumerable: true, // 可枚举
         configurable: false, // 不能再define
         get: function () {
-            if ('是否需要添加订阅者') {
-                dep.addSub(watcher); // 在这里添加一个订阅者
+            // if ('是否需要添加订阅者') {
+            //     dep.addSub(watcher); // 在这里添加一个订阅者
+            // }
+
+            if (Dep.target) { // 判断是否需要添加订阅者
+                dep.addSub(Dep.target); // 在这里添加一个订阅者
             }
             return val;
         },
@@ -63,6 +56,8 @@ Dep.prototype = {
         });
     }
 }
+
+Dep.target = null;
 
 /**
  * 从代码上看，我们将订阅器Dep添加一个订阅者设计在getter里面，

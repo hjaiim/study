@@ -20,3 +20,11 @@ function nodeToFragment(el) {
     }
     return fragment;
 }
+
+function compileElement(el) {
+    var childNode = el.childNodes;
+    var self = this;
+    [].splice.call(childNode).forEach(function (node) {
+
+    });
+}

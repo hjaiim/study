@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>js事件代理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <ul id="ul1">
+        <li id="test">111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+    </ul>
+    <script>
+        // 1.常规实现
+        // window.onload = function () {
+        //     var oUl = document.getElementById("ul1");
+        //     var aLi = oUl.getElementsByTagName('li');
+        //     for (var i = 0; i < aLi.length; i++) {
+        //         aLi[i].onclick = function () {
+        //             console.log(123);
+        //         }
+        //     }
+        // }
+
+        // 2.事件委托
+        // window.onload = function () {
+        //     var oUl = document.getElementById('ul1');
+        //     var testLi = document.getElementById('test');
+        //     oUl.onclick = function () {
+        //         console.log('ul被点击了');
+        //     };
+        //     // 因为事件冒泡,点击li,ul父元素也会被触发.
+        //     testLi.onclick = function () {
+        //         console.log('li被点击了');
+        //     }
+        // }
+
+        // 
+        window.onload = function () {
+            var oUl = document.getElementById('ul1');
+            console.log(e.target);
+            
+            oUl.onclick = function (e) {
+                if (e.target.nodeName.toLowerCase() == 'li') {
+                    console.log(e.target.innerHTML)
+                }
+            };
+
+        }
+    </script>
+</body>
+
+</html>

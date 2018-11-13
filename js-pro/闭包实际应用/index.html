@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>闭包实际开发应用</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <button>Button0</button>
+    <button>Button1</button>
+    <button>Button2</button>
+    <button>Button3</button>
+    <button>Button4</button>
+    <script>
+        // 以此来把作用域链往下延长一段，目的就是为了利用js在找自由变量时,会沿着作用域链一级一级往上找的特点），
+        // 并将这个定义的函数return出来，供外部使用。在实际开发中，闭包主要是用来封装变量，收敛权限
+        // 作用域链是在函数定义的时候就 确定了.和谁来执行,什么时候来执行没有一点关系.
+
+        function test() {
+            // 定义私有变量
+            var _list = [];
+            return function (obj) {
+                if (_list.indexOf(obj) > 0) {
+                    console.log('对象已存在');
+                } else {
+                    console.log('对象第一次push');
+                    _list.push(obj);
+                }
+            }
+        }
+        test()('nba');
+
+
+
+        // 实现封装，管理私有变量和私有方法，将变量（状态）的变化封装在安全的环境中。
+        var person = function () {
+            var _name = 'hjai';
+            return {
+                setName: function (name) {
+                    _name = name;
+                },
+                getName: function () {
+                    return _name;
+                }
+            };
+        }();
+        console.log(person);
+
+        // 页面上有5个button,要给button绑定onclick事件，点击的时候，弹出对应button的索引编号。
+        // var buttonArr = document.getElementsByTagName('button');
+        // for (var i = 0; i < buttonArr.length; i++) {
+        //     buttonArr[i].onclick = function () {
+        //         console.log(i);
+        //     }
+        // }
+        // 结果是触发任意一个button,都打印5.
+
+        // 那么如何打印0-4.使用闭包
+        /**
+        在js中，没有块级作用域 ，只有函数作用域。
+        可以采用“立即执行函数Immediately-Invoked Function Expression (IIFE)”的方式创建作用域
+        */
+        var buttonArr = document.getElementsByTagName('button');
+        for (var i = 0; i < buttonArr.length; i++) {
+            (function ($i) {
+                buttonArr[$i].onclick = function () {
+                    console.log($i);
+                }
+            })(i)
+        }
+
+        /**
+        假如有一个计算乘积的函数，mult函数接收一些number类型的参数，并返回乘积结果。
+        为了提高函数性能，我们增加缓存机制，将之前计算过的结果缓存起来，下次遇到同样的参数，
+        就可以直接返回结果，而不需要参与运算。这里，存放缓存结果的变量不需要暴露给外界，
+        并且需要在函数运行结束后，仍然保存，所以可以采用闭包
+        */
+
+        function multiplicat($number) {
+            if (typeof $number !== 'number') {
+                return
+            }
+        }
+    </script>
+</body>
+
+</html>
